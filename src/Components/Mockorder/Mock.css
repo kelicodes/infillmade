@@ -1,0 +1,204 @@
+/* ===== Container & Titles ===== */
+.orders-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Inter', sans-serif;
+  color: #2c3e50;
+}
+
+/* ===== Orders Header ===== */
+.orders-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.orders-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.total-revenue {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #10b981; /* Green color for funds */
+  background-color: #f0fdf4;
+  padding: 8px 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  white-space: nowrap;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.total-revenue:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.loading-text,
+.no-orders-text {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #6b7280;
+  margin-top: 50px;
+}
+
+/* ===== Order Card ===== */
+.order-card {
+  background-color: #ffffff;
+  border-radius: 14px;
+  padding: 25px;
+  margin-bottom: 25px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.order-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.order-status {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: #fff;
+  white-space: nowrap;
+}
+
+/* Status colors */
+.order-status.pending { background-color: #f59e0b; }
+.order-status.paid { background-color: #3b82f6; }
+.order-status.packaged { background-color: #8b5cf6; }
+.order-status.out-for-delivery { background-color: #f97316; }
+.order-status.delivered { background-color: #10b981; }
+.order-status.cancelled { background-color: #ef4444; }
+
+/* ===== Items Grid ===== */
+.items-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.item-card {
+  width: 140px;
+  background-color: #f3f4f6;
+  border-radius: 12px;
+  padding: 12px;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.item-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.item-image {
+  width: 100%;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.item-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 4px;
+}
+
+.item-qty,
+.item-price {
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+/* ===== Status Update Dropdown ===== */
+.status-update {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.status-update label {
+  font-weight: 600;
+  color: #374151;
+}
+
+.status-update select {
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background-color: #ffffff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.status-update select:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 0 6px rgba(59,130,246,0.2);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 640px) {
+  .orders-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .total-revenue {
+    font-size: 1.1rem;
+    padding: 6px 12px;
+  }
+
+  .items-grid {
+    flex-direction: column;
+  }
+
+  .item-card {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: left;
+    padding: 10px;
+  }
+
+  .item-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 6px;
+  }
+
+  .order-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .status-update {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

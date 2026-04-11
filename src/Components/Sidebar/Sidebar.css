@@ -1,0 +1,50 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 20px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  height: 100vh;
+  border-right: 1px solid var(--primary-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Each link */
+.side-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover effect */
+.side-link:hover {
+  color: var(--primary-color);
+  transform: scale(1.05);
+}
+
+/* Icon style */
+.icon {
+  font-size: 1.5rem;
+}
+
+/* Hide text (p) on small screens */
+@media (max-width: 768px) {
+  .side-link p {
+    display: none;
+  }
+
+  .sidebar {
+    align-items: center;
+    padding: 10px;
+  }
+
+  .icon {
+    font-size: 1.8rem;
+  }
+}

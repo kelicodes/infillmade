@@ -1,0 +1,118 @@
+:root {
+  --primary-color: gold;
+  --bg-color: black;
+  --text-color: white;
+  --sectext-color: gray;
+}
+
+/* Navbar container */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-color);
+  color: var(--text-color);
+  padding: 5px 10px;
+  border-bottom: 2px solid var(--primary-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Logo */
+.navbar-logo h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+.navbar-logo span {
+  color: var(--text-color);
+}
+
+/* Links */
+.navbar-links {
+  display: flex;
+  gap: 25px;
+  list-style: none;
+}
+.navbar-links a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  transition: color 0.3s;
+}
+.navbar-links a:hover {
+  color: var(--primary-color);
+}
+
+/* Right side: menu, theme toggle, profile */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Menu icon */
+.menu-icon {
+  cursor: pointer;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+}
+
+/* Theme toggle */
+.theme-toggle {
+  cursor: pointer;
+  color: var(--primary-color);
+  transition: transform 0.3s;
+}
+.theme-toggle:hover {
+  transform: rotate(15deg);
+}
+
+/* Profile image */
+.navbar-profile img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  /* Hide nav links on small screens */
+  .navbar-links {
+    position: absolute;
+    top: 65px;
+    right: 0;
+    background: var(--bg-color);
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    padding: 20px 0;
+    border-top: 2px solid var(--primary-color);
+    transform: translateY(-200%);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+  }
+
+  .navbar-links.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* On small screens, hide the text and show only icons if you add them later */
+  .navbar-links a {
+    color: var(--text-color);
+    text-decoration: none;
+  }
+
+  /* Right side always visible */
+  .navbar-right {
+    gap: 10px;
+  }
+}

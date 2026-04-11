@@ -1,0 +1,38 @@
+.adding-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.adding-box {
+  background: var(--bg-color);
+  color: var(--text-color);
+  padding: 25px 35px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 500;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--sectext-color);
+  border-top: 4px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 12px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

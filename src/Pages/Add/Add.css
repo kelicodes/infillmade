@@ -1,0 +1,103 @@
+:root {
+  --primary-color: gold;
+  --bg-color: black;
+  --text-color: white;
+  --sectext-color: gray;
+}
+
+.add {
+  width: 80%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-around;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* Image upload grid */
+.imageupload {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 0.5fr);
+  margin-top: 10px;
+  margin-bottom: 10px;
+  gap: 20px;
+}
+
+/* Input name section */
+.name {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  width: 80%;
+}
+
+.name label {
+  color: var(--sectext-color);
+  margin-bottom: 6px;
+}
+
+.name input {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid var(--sectext-color);
+  background-color: transparent;
+  color: var(--text-color);
+  transition: 0.3s ease;
+}
+
+.name input:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+/* Textarea styling */
+.add textarea {
+  width: 80%;
+  height: 16vh;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  border: 1px solid var(--sectext-color);
+  background-color: transparent;
+  color: var(--text-color);
+  padding: 10px;
+  resize: none;
+  transition: 0.3s ease;
+}
+
+.add textarea:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+/* Image styling */
+.image img {
+  width: 110px;
+  height: 110px;
+  border-radius: 8px;
+  border: 1px solid var(--sectext-color);
+  object-fit: cover;
+  background-color: var(--bg-color);
+}
+
+/* Button styling */
+button {
+  margin-top: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #d4af37;
+  transform: scale(1.05);
+}

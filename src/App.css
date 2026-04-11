@@ -1,0 +1,30 @@
+:root{
+    --primary-color:gold;
+    --bg-color:black;
+    --text-color:white;
+    --sectext-color:gray;
+}
+
+
+html[theme="light"]{
+    --primary-color:gold;
+    --bg-color:white;
+    --text-color:black;
+    
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+
+.side{
+    display: flex;
+}
+
+
+.myside{
+    width: 18%;
+}
