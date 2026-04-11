@@ -28,9 +28,9 @@ const App = () => {
       <div className="side">
         {!isLoginPage && <Sidebar />} {/* hide Sidebar on login */}
         <Routes>
-          <Route path="/add" element={<Add />} />
+          <Route path="/" element={<Add />} />
           <Route path="/list" element={<List />} />
-          <Route path="/" element={<Login/>}/>
+          <Route path="/Login" element={<Login/>}/>
           <Route path="/Orders" element={<Orders/>} />
           <Route path="/avatar" element={<AvatarDisplay/>}/>
         </Routes>
