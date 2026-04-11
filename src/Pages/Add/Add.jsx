@@ -146,10 +146,9 @@ const Add = () => {
 
         <select value={category} onChange={(e) => setCategory(e.target.value)}>
           <option value="">Select category</option>
-          <option value="Bags">Bags</option>
-          <option value="Accessories">Accessories</option>
-          <option value="Skirts/Dresses">Skirts/Dresses</option>
-          <option value="trousers">Trousers</option>
+          <option value="Hoodie">Bags</option>
+          <option value="T-shirts/shirts">Accessories</option>
+          <option value="Jeans">Skirts/Dresses</option>
           <option value="combo">Combo</option>
         </select>
 
