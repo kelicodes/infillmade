@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import axios from "axios";
+import { toast } from "react-toastify";
 import { MdAttachEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { SiNamecheap } from "react-icons/si";
@@ -9,6 +9,8 @@ import "./Login.css";
 
 const Login = () => {
   const [logstate, setLogstate] = useState("login");
+  const [loading, setLoading] = useState(false);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,110 +19,107 @@ const Login = () => {
 
   const submithandler = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       if (logstate === "signup") {
-        const response = await axios.post(
+        const res = await axios.post(
           "https://inf-1-udgs.onrender.com/user/reg",
           { name, email, password }
         );
 
-        if (response.data.success) {
-          // Clear fields
-          setEmail("");
-          setName("");
-          setPassword("");
-
-          // Store token if returned
-          if (response.data.token) {
-            localStorage.setItem("token", response.data.token);
-          }
-
-          toast.success(response.data.message);
-          navigate("/add"); // redirect to dashboard
+        if (res.data.success) {
+          toast.success(res.data.message);
+          navigate("/add");
         }
-      } else if (logstate === "login") {
-        const response = await axios.post(
+      } else {
+        const res = await axios.post(
           "https://inf-1-udgs.onrender.com/user/login",
           { email, password }
         );
 
-        if (response.data.success) {
-          // Clear fields
-          setEmail("");
-          setName("");
-          setPassword("");
-
-          // Store token in localStorage
-          localStorage.setItem("token", response.data.token);
-          toast.success(response.data.message);
-
-          navigate("/add"); // redirect to dashboard
+        if (res.data.success) {
+          localStorage.setItem("token", res.data.token);
+          toast.success(res.data.message);
+          navigate("/add");
         }
       }
     } catch (err) {
-      console.error(err);
-      toast.error(err.response?.data?.message || "Login/Signup failed");
+      toast.error(err.response?.data?.message || "Failed");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={submithandler} className="Login">
-      <div className="navbar-logo">
-        <h2>
-          Gold<span>Store</span>
-        </h2>
-      </div>
+    <div className="login-page">
+      <form onSubmit={submithandler} className="login-card">
 
-      {logstate === "signup" && (
-        <div className="Name">
-          <div className="Nameinput enter">
+        {/* LOGO */}
+        <div className="logo">
+          BEØ <span>STORE</span>
+        </div>
+
+        {/* NAME */}
+        {logstate === "signup" && (
+          <div className="input-box">
             <SiNamecheap />
             <input
               type="text"
+              placeholder="Full Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Enter name"
               required
             />
           </div>
+        )}
+
+        {/* EMAIL */}
+        <div className="input-box">
+          <MdAttachEmail />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
         </div>
-      )}
 
-      <div className="Email enter">
-        <MdAttachEmail />
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter email"
-          required
-        />
-      </div>
+        {/* PASSWORD */}
+        <div className="input-box">
+          <RiLockPasswordFill />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
 
-      <div className="Password enter">
-        <RiLockPasswordFill />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Enter password"
-          required
-        />
-      </div>
-
-      {logstate === "signup" ? (
-        <p onClick={() => setLogstate("login")}>
-          Already have an account? <span>Login</span>
+        {/* SWITCH */}
+        <p className="switch">
+          {logstate === "login" ? (
+            <>
+              Don’t have an account?{" "}
+              <span onClick={() => setLogstate("signup")}>Sign up</span>
+            </>
+          ) : (
+            <>
+              Already have an account?{" "}
+              <span onClick={() => setLogstate("login")}>Login</span>
+            </>
+          )}
         </p>
-      ) : (
-        <p onClick={() => setLogstate("signup")}>
-          Don't have an account? <span>Sign Up</span>
-        </p>
-      )}
 
-      <button className="btn">SUBMIT</button>
-    </form>
+        {/* BUTTON */}
+        <button className="btn" disabled={loading}>
+          {loading ? <span className="spinner"></span> : "ENTER BEØ"}
+        </button>
+
+      </form>
+    </div>
   );
 };
 
