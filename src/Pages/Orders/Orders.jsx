@@ -7,53 +7,83 @@ const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch orders from backend
+  const [productCache, setProductCache] = useState({});
+  const token = localStorage.getItem("token");
+
+  // =========================
+  // FETCH ORDERS
+  // =========================
   const fetchOrders = async () => {
     try {
-      const token = localStorage.getItem("token"); // token only auth
-      const response = await axios.get(
-        "https://inf-ct8e.onrender.com/orders/all",
+      const res = await axios.get(
+        "https://inf-1-udgs.onrender.com/orders/all",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
 
-      if (response.data.success) {
-        setOrders(response.data.orders);
+      if (res.data.success) {
+        setOrders(res.data.orders);
       } else {
-        toast.error(response.data.message || "Failed to fetch orders");
+        toast.error("Failed to fetch orders");
       }
-    } catch (e) {
-      console.error(e);
-      toast.error("Failed to fetch orders");
+    } catch (err) {
+      console.log(err);
+      toast.error("Error loading orders");
     } finally {
       setLoading(false);
     }
   };
 
-  // Update order status
-  const handleStatusChange = async (orderId, newStatus) => {
+  // =========================
+  // FETCH PRODUCT BY ID
+  // =========================
+  const getProduct = async (productId) => {
     try {
-      const token = localStorage.getItem("token");
+      if (productCache[productId]) return productCache[productId];
+
+      const res = await axios.get(
+        `https://inf-1-udgs.onrender.com/products/fetch/${productId}`
+      );
+
+      if (res.data.success) {
+        const product = res.data.theproduct;
+
+        setProductCache((prev) => ({
+          ...prev,
+          [productId]: product,
+        }));
+
+        return product;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // =========================
+  // STATUS UPDATE
+  // =========================
+  const updateStatus = async (id, status) => {
+    try {
       const res = await axios.put(
-        `https://thegoldfina.onrender.com/orders/update/${orderId}`,
-        { status: newStatus },
-        { headers: { Authorization: `Bearer ${token}` } }
+        `https://inf-1-udgs.onrender.com/orders/update/${id}`,
+        { status },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
       );
 
       if (res.data.success) {
         setOrders((prev) =>
-          prev.map((order) =>
-            order._id === orderId ? { ...order, status: newStatus } : order
+          prev.map((o) =>
+            o._id === id ? { ...o, status } : o
           )
         );
-        toast.success(res.data.message);
-      } else {
-        toast.error(res.data.message);
       }
-    } catch (e) {
-      console.error(e);
-      toast.error("Failed to update order status");
+    } catch (err) {
+      console.log(err);
+      toast.error("Update failed");
     }
   };
 
@@ -61,91 +91,95 @@ const Orders = () => {
     fetchOrders();
   }, []);
 
-  if (loading) return <p className="loading-text">Loading your orders...</p>;
-  if (!orders || orders.length === 0)
-    return <p className="no-orders-text">You have no orders yet.</p>;
+  // =========================
+  // LOADING STATES
+  // =========================
+  if (loading) return <p>Loading...</p>;
+  if (!orders.length) return <p>No orders found</p>;
 
-  // Calculate total revenue
-  const totalRevenue = orders.reduce(
-    (acc, order) => acc + Number(order.totalAmount || 0),
-    0
-  );
+  // =========================
+  // PRODUCT IMAGE COMPONENT
+  // =========================
+  const ProductImage = ({ productId }) => {
+    const [img, setImg] = useState("");
 
-  const allowedStatuses = [
-    "Pending",
-    "Paid",
-    "Packaged",
-    "Out for Delivery",
-    "Delivered",
-    "Cancelled",
-  ];
+    useEffect(() => {
+      const load = async () => {
+        const product = await getProduct(productId);
+        setImg(product?.images?.[0] || "");
+      };
 
+      load();
+    }, [productId]);
+
+    return (
+      <img
+        src={img}
+        alt="product"
+        width="60"
+        height="60"
+        style={{
+          objectFit: "cover",
+          borderRadius: "8px",
+          background: "#222",
+        }}
+      />
+    );
+  };
+
+  // =========================
+  // UI
+  // =========================
   return (
     <div className="orders-container">
-      <div className="orders-header">
-        <h2 className="orders-title">My Orders</h2>
-        <div className="total-revenue">
-          Total Revenue: KES {totalRevenue.toLocaleString()}
-        </div>
-      </div>
+      <h2 className="orders-title">Orders</h2>
 
       {orders.map((order) => (
         <div key={order._id} className="order-card">
+
           <div className="order-header">
-            <p>
-              <strong>Order ID:</strong> {order._id}
-            </p>
-            <span
-              className={`order-status ${
-                order.status?.toLowerCase().replace(/ /g, "-") || "pending"
-              }`}
-            >
-              {order.status || "Pending"}
-            </span>
+            <p><b>ID:</b> {order._id}</p>
+            <span>{order.status}</span>
           </div>
 
-          <p>
-            <strong>Payment Method:</strong> {order.paymentMethod}
-          </p>
-          <p>
-            <strong>Total:</strong> KES {order.totalAmount}
-          </p>
+          <p><b>Payment:</b> {order.paymentMethod}</p>
+          <p><b>Total:</b> KES {order.totalAmount}</p>
 
-          <div className="order-items">
-            <h4>Items:</h4>
-            <div className="items-grid">
-              {order.items.map((item) => (
-                <div key={item.productId} className="item-card">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="item-image"
-                  />
-                  <p className="item-name">{item.name}</p>
-                  <p className="item-qty">Qty: {item.quantity}</p>
-                  <p className="item-price">KES {item.price}</p>
+          {/* ITEMS */}
+          <div className="items">
+
+            {order.items.map((item, i) => (
+              <div key={i} className="item">
+
+                {/* IMAGE FROM PRODUCT ID */}
+                <ProductImage productId={item.productId} />
+
+                <div>
+                  <p>{item.name}</p>
+                  <small>Qty: {item.quantity}</small>
+                  <p>KES {item.price}</p>
                 </div>
-              ))}
-            </div>
+
+              </div>
+            ))}
+
           </div>
 
-          {/* Status update dropdown */}
-          <div className="status-update">
-            <label htmlFor={`status-${order._id}`}>Update Status:</label>
-            <select
-              id={`status-${order._id}`}
-              value={order.status}
-              onChange={(e) =>
-                handleStatusChange(order._id, e.target.value)
-              }
-            >
-              {allowedStatuses.map((status) => (
-                <option key={status} value={status}>
-                  {status}
-                </option>
-              ))}
-            </select>
-          </div>
+          {/* STATUS */}
+          <select
+            value={order.status}
+            onChange={(e) =>
+              updateStatus(order._id, e.target.value)
+            }
+          >
+            <option>Pending</option>
+            <option>Paid</option>
+            <option>Packaged</option>
+            <option>Out for Delivery</option>
+            <option>Delivered</option>
+            <option>Cancelled</option>
+          </select>
+
         </div>
       ))}
     </div>

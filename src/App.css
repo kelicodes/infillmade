@@ -1,30 +1,30 @@
-:root{
-    --primary-color:gold;
-    --bg-color:black;
-    --text-color:white;
-    --sectext-color:gray;
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-
-html[theme="light"]{
-    --primary-color:gold;
-    --bg-color:white;
-    --text-color:black;
-    
+.app-body {
+  display: flex;
+  flex: 1;
+  min-height: 100vh;
 }
 
-body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  transition: background-color 0.4s ease, color 0.4s ease;
+.sidebar {
+  width: 260px;
+  min-height: 100vh;
+  flex-shrink: 0;
+
+  background: var(--bg-surface);
+  border-right: 1px solid rgba(255, 208, 0, 0.08);
+
+  display: flex;
+  flex-direction: column;
+  padding: 20px 16px;
 }
 
-
-.side{
-    display: flex;
-}
-
-
-.myside{
-    width: 18%;
+.app-content {
+  flex: 1;
+  padding: 24px;
+  min-height: 100vh;
 }

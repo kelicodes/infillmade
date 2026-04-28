@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import { assets } from "../../assets/asssets.js";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import "./Navbar.css";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [theme, setTheme] = useState("dark");
+  const navigate=useNavigate()
 
-  // Apply theme to root element
   useEffect(() => {
     document.documentElement.setAttribute("theme", theme);
   }, [theme]);
@@ -16,34 +16,48 @@ const Navbar = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
 
+  const closeMenu = () => setMenuOpen(false);
+
   return (
-    <nav className="navbar">
-      {/* Left side: Logo */}
-      <div className="navbar-logo">
-        <h2>
-          Gold<span>Store</span>
-        </h2>
+    <nav className="beo-nav">
+
+      {/* LOGO */}
+      <div onClick={()=>navigate("/add")} className="beo-logo">
+        BE<span>Ø</span>
       </div>
 
-      {/* Center: Links */}
-      <ul className={`navbar-links ${menuOpen ? "open" : ""}`}>
-        <li><a href="/">Home</a></li>
-        <li><a href="/products">Products</a></li>
-        <li><a href="/about">About</a></li>
+      {/* LINKS */}
+      <ul className={`beo-links ${menuOpen ? "open" : ""}`}>
+        <li><a href="/" onClick={closeMenu}>Home</a></li>
+        <li><a href="/shop" onClick={closeMenu}>Shop</a></li>
+        <li><a href="/collection" onClick={closeMenu}>Collection</a></li>
+        <li><a href="/about" onClick={closeMenu}>About</a></li>
       </ul>
 
-      {/* Right side: Menu icon + Theme toggle + Profile */}
-      <div className="navbar-right">
-        <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
-          {menuOpen ? <X size={24} /> : <Menu size={24} />}
-        </div>
-        <div className="theme-toggle" onClick={toggleTheme}>
-          {theme === "dark" ? <Sun size={22} /> : <Moon size={22} />}
-        </div>
-        <div className="navbar-profile">
-          <img src={assets.profileimg} alt="Profile" />
-        </div>
+      {/* ACTIONS */}
+      <div className="beo-actions">
+
+        <button className="beo-icon-btn" >
+          {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+        </button>
+
+        <button
+          className="beo-icon-btn mobile"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          {menuOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
+
       </div>
+
+      {/* MOBILE MENU */}
+      <div className={`beo-mobile ${menuOpen ? "show" : ""}`}>
+        <a href="/" onClick={closeMenu}>Home</a>
+        <a href="/shop" onClick={closeMenu}>Shop</a>
+        <a href="/collection" onClick={closeMenu}>Collection</a>
+        <a href="/about" onClick={closeMenu}>About</a>
+      </div>
+
     </nav>
   );
 };

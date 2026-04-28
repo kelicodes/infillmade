@@ -1,50 +1,95 @@
-.sidebar {
+/* ================================
+   SIDEBAR BASE (DESKTOP)
+================================ */
+
+.beo-sidebar {
+  width: 260px;
+  min-height: 100vh;
+  background: var(--bg-surface);
+  border-right: 1px solid rgba(255, 208, 0, 0.08);
+
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  padding: 20px;
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  height: 100vh;
-  border-right: 1px solid var(--primary-color);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 20px 14px;
+  margin-top: 50px;
 }
 
-/* Each link */
-.side-link {
+.beo-sidebar-title {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+/* ================================
+   LINKS
+================================ */
+
+.beo-side-link {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+
+  padding: 12px 14px;
+  margin-bottom: 8px;
+
   text-decoration: none;
-  color: var(--text-color);
-  font-weight: 500;
-  font-size: 1rem;
-  transition: color 0.3s ease, transform 0.3s ease;
+
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  color: var(--text-secondary);
+  border-radius: var(--radius-xs);
+
+  transition: 0.25s ease;
 }
 
-/* Hover effect */
-.side-link:hover {
-  color: var(--primary-color);
-  transform: scale(1.05);
+.beo-side-link:hover {
+  background: rgba(255, 208, 0, 0.06);
+  color: var(--beo-yellow);
+  transform: translateX(4px);
 }
 
-/* Icon style */
-.icon {
-  font-size: 1.5rem;
+.beo-icon {
+  font-size: 20px;
 }
 
-/* Hide text (p) on small screens */
+/* ================================
+   MAIN LAYOUT FIX
+================================ */
+
+.app-body {
+  display: flex;
+}
+
+/* ================================
+   MOBILE VIEW — ICONS ONLY
+================================ */
+
 @media (max-width: 768px) {
-  .side-link p {
+  .beo-sidebar {
+    width: 70px;
+    padding: 16px 8px;
+    align-items: center;
+  }
+
+  .beo-sidebar-title {
     display: none;
   }
 
-  .sidebar {
-    align-items: center;
-    padding: 10px;
+  .beo-side-link {
+    justify-content: center;
+    padding: 14px;
   }
 
-  .icon {
-    font-size: 1.8rem;
+  .beo-label {
+    display: none; /* hide text */
+  }
+
+  .beo-icon {
+    font-size: 22px;
   }
 }

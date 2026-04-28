@@ -1,28 +1,30 @@
-import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { MdAddchart } from "react-icons/md";
+import { MdAddchart, MdAddBusiness } from "react-icons/md";
 import { FaList } from "react-icons/fa";
-import { MdAddBusiness } from "react-icons/md";
 import "./Sidebar.css";
 
-export const Sidebar = () => {
+const Sidebar = () => {
   return (
-    <div className="sidebar">
-      <Link to="/add" className="side-link">
-        <MdAddchart className="icon" />
-        <p>Add</p>
+    <aside className="beo-sidebar">
+
+      <div className="beo-sidebar-title">MENU</div>
+
+      <Link to="/add" className="beo-side-link">
+        <MdAddchart className="beo-icon" />
+        <span className="beo-label">Add Product</span>
       </Link>
 
-      <Link to="/list" className="side-link">
-        <FaList className="icon" />
-        <p>List</p>
+      <Link to="/list" className="beo-side-link">
+        <FaList className="beo-icon" />
+        <span className="beo-label">Products</span>
       </Link>
 
-      <Link to="/orders" className="side-link">
-        <MdAddBusiness className="icon" />
-        <p>Orders</p>
+      <Link to="/orders" className="beo-side-link">
+        <MdAddBusiness className="beo-icon" />
+        <span className="beo-label">Orders</span>
       </Link>
-    </div>
+
+    </aside>
   );
 };
 

@@ -9,7 +9,7 @@ const List = () => {
   // ✅ Fetch products
   const fetchProducts = async () => {
     try {
-      const response = await axios.get("https://inf-ct8e.onrender.com/products/fetch");
+      const response = await axios.get("https://inf-1-udgs.onrender.com/products/fetch");
       if (response.data.success) {
         setProducts(response.data.products);
       } else {
@@ -25,7 +25,7 @@ const List = () => {
   const removeProduct = async (itemId) => {
     try {
       const response = await axios.delete(
-        `https://inf-ct8e.onrender.com/products/remove/${itemId}`
+        `https://inf-1-udgs.onrender.com/products/remove/${itemId}`
       );
 
       if (response.data.success) {

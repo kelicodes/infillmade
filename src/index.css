@@ -1,0 +1,57 @@
+/* =========================================================
+   LIGHT / DARK THEME SWITCH (BEO BASED)
+   ========================================================= */
+
+/* DEFAULT = DARK MODE */
+:root {
+  --bg-main: #080808;
+  --text-primary: #ffffff;
+  --text-secondary: #aaaaaa;
+  --primary-color: #ffd000;
+}
+
+/* LIGHT MODE */
+html[theme="light"] {
+  --bg-main: #ffffff;
+  --text-primary: #000000;
+  --text-secondary: #555555;
+  --primary-color: #ffd000;
+}
+
+/* =========================================================
+   BASE BODY (uses your BEO system)
+   ========================================================= */
+body {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  transition: background-color 0.4s ease, color 0.4s ease;
+  font-family: "Barlow Condensed", "Bebas Neue", sans-serif;
+}
+
+/* =========================================================
+   GLOBAL RESET
+   ========================================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* =========================================================
+   YOUR LAYOUT (FIXED)
+   ========================================================= */
+.side {
+  display: flex;
+  gap: 20px;
+}
+
+.myside {
+  width: 18%;
+}
+
+/* optional main content */
+.main {
+  flex: 1;
+}

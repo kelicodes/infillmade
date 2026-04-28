@@ -43,7 +43,7 @@ const Add = () => {
       if (image4) formdata.append("image4", image4);
 
       const response = await axios.post(
-        "https://inf-ct8e.onrender.com/products/upload",
+        "https://inf-1-udgs.onrender.com/products/upload",
         formdata,
         { headers: { "Content-Type": "multipart/form-data" } }
       );

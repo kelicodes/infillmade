@@ -1,42 +1,45 @@
 import "./App.css";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useState } from "react";
+
 import Add from "./Pages/Add/Add.jsx";
 import List from "./Pages/List/List.jsx";
 import Login from "./Pages/Login/Login.jsx";
 import Navbar from "./Components/Navbar/Navbar.jsx";
 import Sidebar from "./Components/Sidebar/Sidebar.jsx";
-import Orders from "./Components/Mockorder/Mock.jsx";
-import AvatarDisplay from "./Pages/Admin/Admin.jsx";
+import Orders from "./Pages/Orders/Orders.jsx";
+
 
 const App = () => {
   const location = useLocation();
-  const [paid,setPaid]=useState(true)
+  const [paid, setPaid] = useState(true);
 
-  // Check if current path is login page
-  const isLoginPage = location.pathname === "/";
 
-  if(!paid){
-    return (
-      <p>GOLDSTORE</p>
-    )
+  const isLoginPage = location.pathname === "/Login" || location.pathname === "/";
+
+  if (!paid) {
+    return <p>G</p>;
   }
 
-  return (
-    <div className="app">
-      {!isLoginPage && <Navbar />}  {/* hide Navbar on login */}
-      <div className="side">
-        {!isLoginPage && <Sidebar />} {/* hide Sidebar on login */}
+ return (
+  <div className="app-layout">
+    {!isLoginPage && <Navbar />}
+
+    <div className="app-body">
+      {!isLoginPage && <Sidebar />}
+
+      <main className="app-content">
         <Routes>
-          <Route path="/" element={<Add />} />
+          <Route path="/" element={<Login />} />
+          <Route path="/add" element={<Add />} />
           <Route path="/list" element={<List />} />
-          <Route path="/Login" element={<Login/>}/>
-          <Route path="/Orders" element={<Orders/>} />
-          <Route path="/avatar" element={<AvatarDisplay/>}/>
+          <Route path="/orders" element={<Orders />} />
+       
         </Routes>
-      </div>
+      </main>
     </div>
-  );
+  </div>
+);
 };
 
 export default App;

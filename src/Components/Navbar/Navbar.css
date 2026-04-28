@@ -1,118 +1,165 @@
-:root {
-  --primary-color: gold;
-  --bg-color: black;
-  --text-color: white;
-  --sectext-color: gray;
-}
+/* =========================================================
+   BEØ NAVBAR — PREMIUM STREETWEAR STYLE
+========================================================= */
 
-/* Navbar container */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: var(--bg-color);
-  color: var(--text-color);
-  padding: 5px 10px;
-  border-bottom: 2px solid var(--primary-color);
-  position: sticky;
+.beo-nav {
+  position: fixed;
   top: 0;
+  left: 0;
+  width: 100%;
+  height: 64px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 5%;
+  background: rgba(8, 8, 8, 0.85);
+  backdrop-filter: blur(16px);
+  margin-bottom: 30px;
+
+  border-bottom: 1px solid rgba(255, 208, 0, 0.08);
   z-index: 1000;
 }
 
-/* Logo */
-.navbar-logo h2 {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--primary-color);
-}
-.navbar-logo span {
-  color: var(--text-color);
+/* =========================================================
+   LOGO
+========================================================= */
+.beo-logo {
+  font-size: 1.6rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  font-family: "Bebas Neue", sans-serif;
+  color: white;
+  cursor: pointer;
 }
 
-/* Links */
-.navbar-links {
+.beo-logo span {
+  color: var(--beo-yellow);
+  text-shadow: 0 0 20px rgba(255, 208, 0, 0.5);
+}
+
+/* =========================================================
+   LINKS
+========================================================= */
+.beo-links {
   display: flex;
-  gap: 25px;
+  gap: 28px;
   list-style: none;
 }
-.navbar-links a {
+
+.beo-links a {
   text-decoration: none;
-  color: var(--text-color);
-  font-weight: 500;
-  transition: color 0.3s;
-}
-.navbar-links a:hover {
-  color: var(--primary-color);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  color: var(--text-secondary);
+  transition: 0.3s;
+  position: relative;
 }
 
-/* Right side: menu, theme toggle, profile */
-.navbar-right {
+.beo-links a:hover {
+  color: var(--beo-yellow);
+}
+
+.beo-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 2px;
+  background: var(--beo-yellow);
+  transition: 0.3s;
+}
+
+.beo-links a:hover::after {
+  width: 100%;
+}
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+.beo-actions {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
 }
 
-/* Menu icon */
-.menu-icon {
-  cursor: pointer;
-  color: var(--primary-color);
+.beo-icon-btn {
+  width: 40px;
+  height: 40px;
+
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  background: rgba(255, 255, 255, 0.04);
+  color: white;
+
   display: flex;
   align-items: center;
-}
+  justify-content: center;
 
-/* Theme toggle */
-.theme-toggle {
   cursor: pointer;
-  color: var(--primary-color);
-  transition: transform 0.3s;
-}
-.theme-toggle:hover {
-  transform: rotate(15deg);
+  transition: 0.3s;
 }
 
-/* Profile image */
-.navbar-profile img {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  object-fit: cover;
-  cursor: pointer;
+.beo-icon-btn:hover {
+  border-color: var(--beo-yellow);
+  color: var(--beo-yellow);
+  box-shadow: 0 0 18px rgba(255, 208, 0, 0.25);
 }
 
-/* Mobile responsive */
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+.beo-mobile {
+  position: fixed;
+  top: 64px;
+  right: 0;
+  width: 100%;
+  height: calc(100vh - 64px);
+
+  background: rgba(8, 8, 8, 0.98);
+  backdrop-filter: blur(20px);
+
+  display: flex;
+  flex-direction: column;
+  padding: 40px 30px;
+  gap: 20px;
+
+  transform: translateX(100%);
+  transition: 0.35s ease;
+}
+
+.beo-mobile.show {
+  transform: translateX(0);
+}
+
+.beo-mobile a {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.beo-mobile a:hover {
+  color: var(--beo-yellow);
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
 @media (max-width: 768px) {
-  /* Hide nav links on small screens */
-  .navbar-links {
-    position: absolute;
-    top: 65px;
-    right: 0;
-    background: var(--bg-color);
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    width: 100%;
-    padding: 20px 0;
-    border-top: 2px solid var(--primary-color);
-    transform: translateY(-200%);
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.3s ease;
+  .beo-links {
+    display: none;
   }
 
-  .navbar-links.open {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  /* On small screens, hide the text and show only icons if you add them later */
-  .navbar-links a {
-    color: var(--text-color);
-    text-decoration: none;
-  }
-
-  /* Right side always visible */
-  .navbar-right {
-    gap: 10px;
+  .mobile {
+    display: flex;
   }
 }
