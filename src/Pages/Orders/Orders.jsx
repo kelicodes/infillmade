@@ -327,7 +327,7 @@ const Orders = () => {
   const updateStatus = async (id, status) => {
     try {
       const res = await axios.put(
-        `https://inf-1-udgs.onrender.com/orders/update/${id}`,
+        `https://inf-1-udgs.onrender.com/orders/${id}/status`,
         { status },
         { headers: { Authorization: `Bearer ${token}` } }
       );

@@ -390,10 +390,10 @@ const Add = () => {
             required
           >
             <option value="">— Select category —</option>
-            <option value="Hoodie">Hoodie</option>
-            <option value="T-shirts/shirts">T-shirts / Shirts</option>
-            <option value="Jeans">Jeans</option>
-            <option value="combo">Combo</option>
+            <option value="Men">Hoodie</option>
+            <option value="ladies">T-shirts / Shirts</option>
+            <option value="unisex">Jeans</option>
+            
           </select>
         </div>
 
